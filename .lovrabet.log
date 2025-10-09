@@ -1,0 +1,2 @@
+{"timestamp":"2025-10-09T06:51:30.041Z","level":"error","command":"api-pull","message":"登录鉴权失败，登录已过期，请使用 lovrabet auth 重新登录","details":{"status":401,"appCode":"app-c4055413","url":"https://api.lovrabet.com/smartapi/dataset/getList?appCode=app-c4055413&pageSize=999&currentPage=1"}}
+{"timestamp":"2025-10-09T06:51:49.329Z","level":"info","command":"init-api","message":"API 文件生成成功！"}
