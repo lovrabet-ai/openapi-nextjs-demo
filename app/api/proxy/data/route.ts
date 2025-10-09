@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     });
 
     // SDK 直接返回 data 字段的内容
-    const apiData = response as {
+    const apiData = response as unknown as {
       paging: {
         pageSize: number;
         totalCount: number;

@@ -1,6 +1,6 @@
 "use client";
 
-import { Table, Tag } from "antd";
+import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 interface TableColumn {
@@ -30,11 +30,8 @@ export default function UserTable({
       dataIndex: col.dataIndex,
       key: col.dataIndex,
       render: (value: unknown) => {
-        // 特殊处理某些字段的渲染
-        if (col.dataIndex === "grade" && value) {
-          return <Tag color="blue">{String(value)}</Tag>;
-        }
-        if (col.dataIndex.includes("time") || col.dataIndex.includes("_at")) {
+        // 日期时间字段处理
+        if (col.dataIndex.includes("time") || col.dataIndex.includes("_at") || col.dataIndex.includes("date")) {
           if (value) {
             return new Date(String(value)).toLocaleDateString("zh-CN");
           }

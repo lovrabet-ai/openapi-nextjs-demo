@@ -1,7 +1,6 @@
 /**
- * 场景1：Next.js 服务端直接调用 OpenAPI
+ * 场景1：Next.js 服务端渲染 (SSR)
  *
- * 使用真实数据集：UsersInfo (用户信息表)
  * 数据在服务端获取，然后渲染成 HTML 返回给客户端
  */
 
@@ -38,9 +37,9 @@ async function fetchUsersInfo() {
   try {
     // 创建服务端客户端（使用 accessKey）
     const client = createServerClient();
-    const model = client.getModel(1);
-    // 调用 SDK 获取用户信息列表 - SDK 直接返回 data 字段的内容
-    const response = (await model.getList()) as ApiResponse["data"];
+    const model = client.getModel(0);
+    // 调用 SDK 获取数据列表 - SDK 直接返回 data 字段的内容
+    const response = (await model.getList()) as unknown as ApiResponse["data"];
 
     return {
       success: true,
@@ -76,9 +75,9 @@ export default async function Scenario1SSRPage() {
           <h2 className="text-lg font-semibold text-blue-900 mb-2">工作原理</h2>
           <ul className="list-disc list-inside text-blue-800 space-y-1">
             <li>页面在 Next.js 服务端渲染</li>
-            <li>使用 accessKey 认证（ak-KgyJkUVr...）</li>
-            <li>直接调用 OpenAPI 获取 UsersInfo 数据</li>
-            <li>数据集：f8afbe3f6f12438dac556ebb3ae2c9cf</li>
+            <li>使用 accessKey 认证</li>
+            <li>直接调用 OpenAPI 获取数据</li>
+            <li>使用第 0 个数据集</li>
             <li>安全：密钥只在服务端使用，不暴露给客户端</li>
           </ul>
         </div>

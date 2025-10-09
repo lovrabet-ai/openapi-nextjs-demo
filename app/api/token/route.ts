@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateOpenApiTokenForNextjs } from '@/lib/crypto-helper';
-import { LOVRABET_APP_CODE } from '@/lib/sdk-client';
-import { ACCESS_KEY } from '@/lib/sdk-client';
+import { generateOpenApiToken } from '@lovrabet/sdk';
+import { LOVRABET_APP_CODE, ACCESS_KEY } from '@/lib/sdk-client';
 
 /**
  * Token 生成 API
@@ -24,6 +23,7 @@ export async function POST(request: NextRequest) {
     const accessKey = ACCESS_KEY;
     const appCode = LOVRABET_APP_CODE;
 
+
     if (!accessKey) {
       return NextResponse.json(
         { error: 'ACCESS_KEY not configured' },
@@ -31,11 +31,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 使用 Next.js 专用的 token 生成函数
-    const result = await generateOpenApiTokenForNextjs({
+    // 使用 SDK 提供的 generateOpenApiToken 函数
+    const result = await generateOpenApiToken({
       appCode,
       datasetCode,
-      accessKey
+      accessKey,
     });
 
     // 返回 token 数据

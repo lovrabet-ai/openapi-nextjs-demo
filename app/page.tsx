@@ -13,9 +13,10 @@ export default function Home() {
           这是一个使用 Next.js 15 和 Lovrabet SDK 的演示项目，展示了三种不同的集成模式：
         </p>
         <ul className="list-disc list-inside text-gray-600 space-y-1">
-          <li>App Code: <code className="bg-gray-200 px-1">app-c4055413</code></li>
+          <li>App Code: <code className="bg-gray-200 px-1">app-64289c49</code></li>
           <li>环境: <code className="bg-gray-200 px-1">daily</code></li>
           <li>SDK 版本: <code className="bg-gray-200 px-1">@lovrabet/sdk (本地开发版)</code></li>
+          <li>默认使用第 0 个数据集</li>
         </ul>
       </div>
 
@@ -93,8 +94,8 @@ export default function Home() {
           请在 <code className="bg-yellow-100 px-1">.env.local</code> 文件中配置以下环境变量：
         </p>
         <pre className="bg-yellow-100 p-3 rounded text-sm overflow-x-auto">
-{`ACCESS_KEY=ak-your-access-key-here
-SECRET_KEY=sk-your-secret-key-here (可选)`}
+{`ACCESS_KEY=ak-xIXmgi99gwTqa4cwMXwe2wba_gN40dcuBvzFpDRbo_w
+SECRET_KEY=sk-your-secret-key-here (可选，用于生成 token)`}
         </pre>
         <p className="text-yellow-600 text-sm mt-2">
           注意：ACCESS_KEY 和 SECRET_KEY 仅在服务端使用，永远不要暴露给客户端！
