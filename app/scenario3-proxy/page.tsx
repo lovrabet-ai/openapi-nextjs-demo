@@ -12,6 +12,9 @@
 import { useState } from "react";
 import DataTable from "./DataTable";
 import ScenarioLayout from "../components/ScenarioLayout";
+import { Button, Alert, Card, Typography, Space, Empty } from "antd";
+
+const { Title, Text } = Typography;
 
 interface TableColumn {
   title: string;
@@ -86,60 +89,66 @@ export default function Scenario3ProxyPage() {
 
   return (
     <ScenarioLayout>
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-6">场景3：API 中转模式</h1>
+      <div style={{ padding: 24 }}>
+        <Space direction="vertical" size="large" style={{ width: "100%" }}>
+          <Title level={2}>场景3：API 中转模式</Title>
 
-        <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
-        <h2 className="text-lg font-semibold text-purple-900 mb-2">
-          工作原理
-        </h2>
-        <ul className="list-disc list-inside text-purple-800 space-y-1">
-          <li>前端调用 Next.js API Routes（/api/proxy/data）</li>
-          <li>API Routes 在服务端使用 accessKey 认证</li>
-          <li>服务端调用 OpenAPI 获取数据（使用第0个数据集）</li>
-          <li>可以添加额外的业务逻辑、权限控制、数据转换等</li>
-          <li>适合需要服务端处理的场景</li>
-        </ul>
-      </div>
-
-      {/* 操作按钮 */}
-      <div className="mb-6 flex justify-end">
-        <button
-          onClick={() => fetchData(currentPage, pageSize)}
-          disabled={loading}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400"
-        >
-          {loading ? "加载中..." : "获取数据"}
-        </button>
-      </div>
-
-      {/* 错误信息 */}
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-          <h3 className="text-lg font-semibold text-red-900">错误</h3>
-          <p className="text-red-700">{error}</p>
-        </div>
-      )}
-
-        {/* 数据表格 */}
-        {(data.length > 0 || columns.length > 0) && (
-          <DataTable
-            data={data}
-            columns={columns}
-            total={total}
-            currentPage={currentPage}
-            pageSize={pageSize}
-            loading={loading}
-            onPageChange={handlePageChange}
+          <Alert
+            message="工作原理"
+            description={
+              <ul style={{ margin: 0, paddingLeft: 20 }}>
+                <li>前端调用 Next.js API Routes（/api/proxy/data）</li>
+                <li>API Routes 在服务端使用 accessKey 认证</li>
+                <li>服务端调用 OpenAPI 获取数据（使用第0个数据集）</li>
+                <li>可以添加额外的业务逻辑、权限控制、数据转换等</li>
+                <li>适合需要服务端处理的场景</li>
+              </ul>
+            }
+            type="info"
+            showIcon
           />
-        )}
 
-        {/* 提示信息 */}
-        {data.length === 0 && columns.length === 0 && !loading && !error && (
-          <div className="bg-gray-100 rounded-lg p-8 text-center text-gray-600">
-            <p>暂无数据，请点击"获取数据"按钮</p>
+          {/* 操作按钮 */}
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              type="primary"
+              onClick={() => fetchData(currentPage, pageSize)}
+              loading={loading}
+            >
+              获取数据
+            </Button>
           </div>
-        )}
+
+          {/* 错误信息 */}
+          {error && (
+            <Alert
+              message="错误"
+              description={error}
+              type="error"
+              showIcon
+            />
+          )}
+
+          {/* 数据表格 */}
+          {(data.length > 0 || columns.length > 0) && (
+            <DataTable
+              data={data}
+              columns={columns}
+              total={total}
+              currentPage={currentPage}
+              pageSize={pageSize}
+              loading={loading}
+              onPageChange={handlePageChange}
+            />
+          )}
+
+          {/* 提示信息 */}
+          {data.length === 0 && columns.length === 0 && !loading && !error && (
+            <Card>
+              <Empty description="暂无数据，请点击【获取数据】按钮" />
+            </Card>
+          )}
+        </Space>
       </div>
     </ScenarioLayout>
   );

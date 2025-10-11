@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "antd";
+import { Menu, Typography, Space } from "antd";
 import type { MenuProps } from "antd";
 import {
   CloudServerOutlined,
@@ -10,6 +10,8 @@ import {
   ApiOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
+
+const { Title, Text } = Typography;
 
 const items: MenuProps["items"] = [
   {
@@ -38,19 +40,30 @@ export default function ScenarioNav() {
   const pathname = usePathname();
 
   return (
-    <div className="h-full bg-white border-r">
-      <div className="p-4 border-b">
-        <h2 className="text-lg font-semibold text-gray-800">
-          Next.js SDK Demo
-        </h2>
-        <p className="text-sm text-gray-600 mt-1">OpenAPI 调用示例</p>
+    <div style={{ height: "100%" }}>
+      <div
+        style={{
+          padding: "20px 16px",
+          borderBottom: "1px solid #f0f0f0",
+        }}
+      >
+        <Space direction="vertical" size={0}>
+          <Title level={4} style={{ margin: 0 }}>
+            Next.js SDK Demo
+          </Title>
+          <Text type="secondary" style={{ fontSize: 12 }}>
+            OpenAPI 调用示例
+          </Text>
+        </Space>
       </div>
       <Menu
         mode="inline"
         selectedKeys={[pathname]}
         items={items}
-        className="h-full border-r-0"
-        style={{ minHeight: "calc(100vh - 88px)" }}
+        style={{
+          border: "none",
+          height: "calc(100% - 84px)",
+        }}
       />
     </div>
   );

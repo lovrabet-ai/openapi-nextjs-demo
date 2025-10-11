@@ -1,8 +1,8 @@
-import { createClient, CONFIG_NAMES } from '@lovrabet/sdk';
+import { createClient, CONFIG_NAMES, type Environment } from '@lovrabet/sdk';
 import type { LovrabetClient } from '@lovrabet/sdk';
-import { LOVRABET_APP_CODE, ACCESS_KEY, LOVRABET_MODELS_CONFIG } from './sdk-daily-config'; // 确保模型已注册
+import { LOVRABET_APP_CODE, ACCESS_KEY, LOVRABET_MODELS_CONFIG } from './d31cb8fb-api'; // 确保模型已注册
 
-const ENV = "daily"
+const ENV = process.env.NEXT_PUBLIC_API_ENV as Environment;
 
 /**
  * 创建服务端客户端（使用 accessKey）
@@ -23,7 +23,10 @@ export function createServerClient(): LovrabetClient {
     apiConfigName: CONFIG_NAMES.DEFAULT,
     appCode: LOVRABET_APP_CODE,
     accessKey: ACCESS_KEY,
-    env: ENV
+    env: ENV,
+    options: {
+      debug: true, // 启用调试日志
+    },
   });
 }
 

@@ -14,6 +14,9 @@ import type { LovrabetClient } from "@lovrabet/sdk";
 import { LOVRABET_MODELS_CONFIG } from "@/lib/sdk-client";
 import CharacterTable from "./CharacterTable";
 import ScenarioLayout from "../components/ScenarioLayout";
+import { Button, Alert, Card, Typography, Space } from "antd";
+
+const { Title, Text, Paragraph } = Typography;
 
 interface TokenData {
   token: string;
@@ -128,111 +131,99 @@ export default function Scenario2BrowserPage() {
 
   return (
     <ScenarioLayout>
-      <div className="container mx-auto p-8">
-        <h1 className="text-3xl font-bold mb-6">场景2：浏览器端直接调用</h1>
+      <div style={{ padding: 24 }}>
+        <Space direction="vertical" size="large" style={{ width: "100%" }}>
+          <Title level={2}>场景2：浏览器端直接调用</Title>
 
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-          <h2 className="text-lg font-semibold text-green-900 mb-2">
-            工作原理
-          </h2>
-          <ul className="list-disc list-inside text-green-800 space-y-1">
-            <li>从后端 API 获取 token 和 timestamp 配对</li>
-            <li>在浏览器端使用 SDK 创建客户端</li>
-            <li>直接调用 OpenAPI 获取数据</li>
-            <li>使用第 0 个数据集</li>
-            <li>Token 有 10 分钟有效期，需要定期刷新</li>
-          </ul>
-        </div>
+          <Alert
+            message="工作原理"
+            description={
+              <ul style={{ margin: 0, paddingLeft: 20 }}>
+                <li>从后端 API 获取 token 和 timestamp 配对</li>
+                <li>在浏览器端使用 SDK 创建客户端</li>
+                <li>直接调用 OpenAPI 获取数据</li>
+                <li>使用第 0 个数据集</li>
+                <li>Token 有 10 分钟有效期，需要定期刷新</li>
+              </ul>
+            }
+            type="success"
+            showIcon
+          />
 
-        {/* Token 状态 */}
-        <div className="mb-6">
+          {/* Token 状态 */}
           {!tokenData ? (
-            <div className="bg-gray-100 rounded-lg p-4">
-              <p className="text-gray-600 mb-4">尚未获取 Token</p>
-              <button
-                onClick={fetchToken}
-                disabled={loading}
-                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400"
-              >
-                {loading ? "获取中..." : "获取 Token"}
-              </button>
-            </div>
+            <Card>
+              <Space direction="vertical" size="middle">
+                <Text type="secondary">尚未获取 Token</Text>
+                <Button
+                  type="primary"
+                  onClick={fetchToken}
+                  loading={loading}
+                >
+                  获取 Token
+                </Button>
+              </Space>
+            </Card>
           ) : (
-            <div
-              className={`rounded-lg p-4 ${
-                isExpiring
-                  ? "bg-yellow-50 border border-yellow-200"
-                  : "bg-blue-50 border border-blue-200"
-              }`}
-            >
-              <div className="flex justify-between items-center">
-                <div>
-                  <h3
-                    className={`font-semibold ${
-                      isExpiring ? "text-yellow-900" : "text-blue-900"
-                    }`}
-                  >
-                    Token 状态
-                  </h3>
-                  <p
-                    className={`text-sm ${
-                      isExpiring ? "text-yellow-700" : "text-blue-700"
-                    } mt-1`}
-                  >
+            <Card>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Space direction="vertical" size="small" style={{ flex: 1 }}>
+                  <Text strong style={{ fontSize: 16 }}>Token 状态</Text>
+                  <Text type={isExpiring ? "warning" : "secondary"}>
                     剩余有效时间：{Math.floor(remainingTime / 60)}分
                     {remainingTime % 60}秒{isExpiring && " (即将过期！)"}
-                  </p>
-                  <p className="text-xs text-gray-600 mt-1">
+                  </Text>
+                  <Text type="secondary" style={{ fontSize: 12 }}>
                     Token: {tokenData.token}
-                  </p>
-                  <p className="text-xs text-gray-600">
+                  </Text>
+                  <Text type="secondary" style={{ fontSize: 12 }}>
                     Timestamp: {tokenData.timestamp}
-                  </p>
-                </div>
-                <div className="space-x-2">
-                  <button
+                  </Text>
+                </Space>
+                <Space>
+                  <Button
+                    type={isExpiring ? "default" : "primary"}
                     onClick={fetchToken}
-                    disabled={loading}
-                    className={`px-4 py-2 rounded text-white ${
-                      isExpiring
-                        ? "bg-yellow-500 hover:bg-yellow-600"
-                        : "bg-blue-500 hover:bg-blue-600"
-                    } disabled:bg-gray-400`}
+                    loading={loading}
+                    danger={isExpiring}
                   >
-                    {loading ? "刷新中..." : "刷新 Token"}
-                  </button>
-                  <button
+                    刷新 Token
+                  </Button>
+                  <Button
+                    type="primary"
                     onClick={fetchCharacters}
-                    disabled={loading || !client}
-                    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-400"
+                    loading={loading}
+                    disabled={!client}
                   >
-                    {loading ? "加载中..." : "获取数据"}
-                  </button>
-                </div>
+                    获取数据
+                  </Button>
+                </Space>
               </div>
-            </div>
+            </Card>
           )}
-        </div>
 
-        {/* 错误信息 */}
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-            <h3 className="text-lg font-semibold text-red-900">错误</h3>
-            <p className="text-red-700">{error}</p>
-          </div>
-        )}
+          {/* 错误信息 */}
+          {error && (
+            <Alert
+              message="错误"
+              description={error}
+              type="error"
+              showIcon
+            />
+          )}
 
-        {/* 数据列表 */}
-        {(characters.length > 0 || columns.length > 0) && (
-          <CharacterTable
-            data={characters}
-            columns={columns}
-            total={total}
-            currentPage={currentPage}
-            pageSize={pageSize}
-            loading={loading}
-          />
-        )}
+          {/* 数据列表 */}
+          {(characters.length > 0 || columns.length > 0) && (
+            <CharacterTable
+              data={characters}
+              columns={columns}
+              total={total}
+              currentPage={currentPage}
+              pageSize={pageSize}
+              loading={loading}
+            />
+          )}
+        </Space>
       </div>
     </ScenarioLayout>
   );

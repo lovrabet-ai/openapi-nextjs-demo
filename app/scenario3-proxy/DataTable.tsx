@@ -58,9 +58,9 @@ export default function DataTable({
   );
 
   return (
-    <div className="antd-table-container">
-      <div className="mb-4 flex justify-between items-center">
-        <span className="text-sm text-gray-600">总记录数：{total}</span>
+    <div>
+      <div style={{ marginBottom: 16, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <span style={{ fontSize: 14, color: "#666" }}>总记录数：{total}</span>
       </div>
       <Table
         columns={columns}
