@@ -11,7 +11,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@lovrabet/sdk": "^1.1.14",
+    "@lovrabet/sdk": "latest",
+    "@tailwindcss/postcss": "^4.1.18",
     "antd": "^5.27.4",
     "next": "15.5.4",
     "react": "^18.2.0",

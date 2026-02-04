@@ -41,7 +41,7 @@ export interface CreateSupplierData {
 }
 
 // 更新供应商时的数据（所有字段可选）
-export interface UpdateSupplierData extends Partial<CreateSupplierData> {}
+export type UpdateSupplierData = Partial<CreateSupplierData>;
 
 // 表格列配置
 export interface TableColumn {
@@ -74,7 +74,7 @@ export interface FieldMeta {
   required: boolean; // 是否必填
   options?: Array<{ label: string; value: string | number }>; // 选项（用于select/radio）
   placeholder?: string; // 占位符
-  rules?: any[]; // 额外的验证规则
+  rules?: Array<{ pattern?: RegExp; message?: string; required?: boolean }>; // 额外的验证规则
 }
 
 // Suppliers 字段配置

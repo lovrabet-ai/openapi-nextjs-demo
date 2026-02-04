@@ -18,13 +18,15 @@ async function fetchSuppliersInfo() {
     // 创建服务端客户端（使用 accessKey）
     const client = createServerClient();
     // 使用 Suppliers 模型
-    const model = client.getModel("Suppliers");
+    const model = client.getModel("suppliers");
     // 调用 SDK 获取数据列表 - SDK 直接返回 data 字段的内容
-    const response = (await model.getList()) as unknown as ApiResponse<Supplier>["data"];
+    const response = (await model.filter(
+      {}
+    )) as unknown as ApiResponse<Supplier>["data"];
 
     return {
       success: true,
-      data: response?.tableData || [],
+      data: (response?.tableData || []) as unknown as Record<string, unknown>[],
       columns: response?.tableColumns || [],
       total: response?.paging?.totalCount || 0,
       currentPage: response?.paging?.currentPage || 1,

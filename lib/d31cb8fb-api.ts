@@ -15,36 +15,74 @@ export const LOVRABET_APP_CODE = process.env.NEXT_PUBLIC_APP_CODE || "";
  */
 export const LOVRABET_MODELS_CONFIG: ModelsConfig = {
   appCode: LOVRABET_APP_CODE,
-  models: {
-    Suppliers: {
-      tableName: "suppliers",
+  models: [
+    {
       datasetCode: "3cc328a56a79432f9796d45f61688c6d",
+      tableName: "suppliers",
+      name: "供应商",
+      alias: "suppliers",
     },
-    PurchaseOrders: {
-      tableName: "purchase_orders",
-      datasetCode: "83123ed76bd246f19385ded2678a579b",
-    },
-    PaymentRecords: {
-      tableName: "payment_records",
-      datasetCode: "1438ed567dc1443fb6aea7c3921272ae",
-    },
-    OrderItems: {
-      tableName: "order_items",
-      datasetCode: "c88e5309206a409f9811c54966f8a510",
-    },
-    Contracts: {
-      tableName: "contracts",
+    {
       datasetCode: "b013d9ba03f342b7b9f65d16f1ae7934",
+      tableName: "contracts",
+      name: "合同信息",
+      alias: "contracts",
     },
-    Dataset71b764e9c6c94658a7949ad99d3575d1: {
-      tableName: "dataset_71b764e9c6c94658a7949ad99d3575d1",
+    {
       datasetCode: "71b764e9c6c94658a7949ad99d3575d1",
+      tableName: "dataset_3575d1",
+      name: "客户基本信息",
+      alias: "dataset3575d1",
     },
-    Dataset90c811bd56524e418503c9b163893db4: {
-      tableName: "dataset_90c811bd56524e418503c9b163893db4",
+    {
       datasetCode: "90c811bd56524e418503c9b163893db4",
+      tableName: "dataset_893db4",
+      name: "客户访谈记录",
+      alias: "dataset893db4",
     },
-  },
+    {
+      datasetCode: "914edd0de7e5437f9799fb046c44b9ed",
+      tableName: "dataset_44b9ed",
+      name: "巡演城市",
+      alias: "dataset44b9ed",
+    },
+    {
+      datasetCode: "1438ed567dc1443fb6aea7c3921272ae",
+      tableName: "payment_records",
+      name: "支付记录",
+      alias: "paymentRecords",
+    },
+    {
+      datasetCode: "76b6a32ad74d492f9d9f5575c4df08a9",
+      tableName: "dataset_df08a9",
+      name: "演出场次",
+      alias: "datasetDf08a9",
+    },
+    {
+      datasetCode: "ee5975eb571c49b9864c6513fa9e4577",
+      tableName: "dataset_9e4577",
+      name: "演出场馆",
+      alias: "dataset9e4577",
+    },
+    {
+      datasetCode: "fcb46b66463a41cb84fbd191bc0a3ad7",
+      tableName: "dataset_0a3ad7",
+      name: "票务状态字典",
+      alias: "dataset0a3ad7",
+    },
+    {
+      datasetCode: "c88e5309206a409f9811c54966f8a510",
+      tableName: "order_items",
+      name: "订单项",
+      alias: "orderItems",
+    },
+    {
+      datasetCode: "83123ed76bd246f19385ded2678a579b",
+      tableName: "purchase_orders",
+      name: "采购订单",
+      alias: "purchaseOrders",
+    },
+  ],
 } as const;
 
 /**

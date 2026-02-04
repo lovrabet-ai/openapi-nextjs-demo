@@ -14,7 +14,7 @@ interface TableColumn {
 interface PageContentProps {
   result: {
     success: boolean;
-    data: any[];
+    data: Record<string, unknown>[];
     columns: TableColumn[];
     total: number;
     currentPage: number;

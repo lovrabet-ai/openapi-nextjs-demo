@@ -86,20 +86,22 @@ export function CreateButton({ columns }: SupplierFormButtonsProps) {
 
       case "text":
       default:
-        return <Input placeholder={fieldMeta.placeholder || `请输入${col.title}`} />;
+        return (
+          <Input placeholder={fieldMeta.placeholder || `请输入${col.title}`} />
+        );
     }
   };
 
   return (
     <>
-      <Button
+      {/* <Button
         type="primary"
         icon={<PlusOutlined />}
         onClick={() => setOpen(true)}
         style={{ marginBottom: 16 }}
       >
         新增记录
-      </Button>
+      </Button> */}
 
       <Modal
         title="新增记录"
@@ -230,7 +232,9 @@ export function UpdateButton({ record, columns }: UpdateButtonProps) {
 
       case "text":
       default:
-        return <Input placeholder={fieldMeta.placeholder || `请输入${col.title}`} />;
+        return (
+          <Input placeholder={fieldMeta.placeholder || `请输入${col.title}`} />
+        );
     }
   };
 
@@ -246,7 +250,8 @@ export function UpdateButton({ record, columns }: UpdateButtonProps) {
             const value = record[col.dataIndex];
             // Switch 类型需要转换：0->false, 1->true
             if (col.dataIndex === "is_deleted") {
-              initialValues[col.dataIndex] = value === 1 || value === "1" || value === true;
+              initialValues[col.dataIndex] =
+                value === 1 || value === "1" || value === true;
             } else {
               initialValues[col.dataIndex] = value;
             }
